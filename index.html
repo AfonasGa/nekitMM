@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>nekitMM — моды для Meltiew</title>
+<meta name="description" content="nekitMM — мод-менеджер для Meltiew: пиши моды на Luau, публикуй через GitHub, играй вместе.">
+<meta name="theme-color" content="#16141d">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16141d; --bg2: #1d1a26; --card: #242030; --card2: #2e2940;
+    --line: #3a3450; --text: #f4f1ec; --muted: #9d96b0; --accent: #b89cff;
+    --accent-dark: #8f6ff0; --mint: #7ee0c3; --pink: #ff8fb1; --ink: #17141f;
+    --radius: 22px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 Nunito, "Segoe UI", sans-serif; font-weight: 600;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header.top {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    max-width: 1060px; margin: 0 auto; padding: 20px 20px 6px;
+  }
+  header.top img { width: 52px; height: 52px; border-radius: 14px; }
+  header.top .brand b { font-size: 24px; font-weight: 900; display: block; line-height: 1.1; }
+  header.top .brand span { color: var(--muted); font-size: 14px; }
+  header.top .links { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+  header.top .links a {
+    padding: 9px 16px; border-radius: 12px; background: var(--card2); color: var(--text); font-weight: 800;
+  }
+  header.top .links a.hot { background: var(--accent); color: var(--ink); }
+
+  main { max-width: 1060px; margin: 0 auto; padding: 14px 20px 60px; }
+  .docs { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 26px; align-items: start; }
+  .docs aside { position: sticky; top: 16px; padding: 14px; gap: 2px; display: flex; flex-direction: column; }
+  .docs aside a { padding: 9px 12px; border-radius: 12px; color: var(--muted); }
+  .docs aside a.on, .docs aside a:hover { background: var(--card2); color: var(--text); text-decoration: none; }
+
+  .md { line-height: 1.6; min-width: 0; }
+  .md h1 { margin-top: 0; font-weight: 900; font-size: 30px; }
+  .md h1 .mm { color: var(--accent); }
+  .md h2 { margin-top: 40px; font-weight: 900; font-size: 22px; scroll-margin-top: 16px; }
+  .md h3 { margin-top: 26px; font-weight: 800; font-size: 18px; }
+  .md code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .9em; background: var(--card2); padding: 2px 6px; border-radius: 6px;
+  }
+  .md pre { position: relative; background: var(--bg2); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; overflow-x: auto; }
+  .md pre code { background: none; padding: 0; font-size: 14px; line-height: 1.55; }
+  .md pre .copy {
+    position: absolute; top: 8px; right: 8px; border: 0; cursor: pointer;
+    background: var(--card2); color: var(--muted); border-radius: 8px; padding: 4px 10px;
+    font: 800 12px Nunito, sans-serif; opacity: 0; transition: opacity .15s;
+  }
+  .md pre:hover .copy { opacity: 1; }
+  .md table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; margin: 12px 0; }
+  .md th, .md td { border-bottom: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: top; }
+  .md th { color: var(--muted); font-weight: 800; }
+  .md .note {
+    background: var(--card); border-radius: var(--radius); padding: 4px 18px; margin: 14px 0;
+  }
+  .md .note.green { border-left: 4px solid var(--mint); }
+  .md .note.purple { border-left: 4px solid var(--accent); }
+  .md ul { padding-left: 22px; }
+  .md li { margin: 3px 0; }
+  .md .api { margin: 8px 0; }
+  .md .api b { color: var(--accent); font-family: ui-monospace, Consolas, monospace; font-size: 14px; font-weight: 800; }
+  .md .api span { color: var(--muted); }
+  .steps { counter-reset: step; padding-left: 0; list-style: none; }
+  .steps li { counter-increment: step; margin: 12px 0; padding-left: 46px; position: relative; }
+  .steps li::before {
+    content: counter(step); position: absolute; left: 0; top: 2px;
+    width: 30px; height: 30px; border-radius: 10px; background: var(--accent); color: var(--ink);
+    font-weight: 900; display: flex; align-items: center; justify-content: center;
+  }
+  footer { max-width: 1060px; margin: 0 auto; padding: 0 20px 40px; color: var(--muted); font-size: 14px; }
+  @media (max-width: 860px) {
+    .docs { grid-template-columns: 1fr; }
+    .docs aside { position: static; flex-direction: row; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <img src="logo.png" alt="nekitMM">
+  <div class="brand"><b>nekit<span style="color:var(--accent)">MM</span></b><span>мод-менеджер для Meltiew</span></div>
+  <nav class="links">
+    <a class="hot" href="https://meltiew.narez.xyz" target="_blank">Meltiew</a>
+    <a href="https://t.me/meltiew" target="_blank">Telegram</a>
+  </nav>
+</header>
+
+<main>
+<div class="docs">
+  <aside class="card" style="background:var(--card);border-radius:var(--radius)" id="nav">
+    <a href="#start" class="on">Начало</a>
+    <a href="#format">Структура мода</a>
+    <a href="#permissions">Права</a>
+    <a href="#api">API модов</a>
+    <a href="#packs">Ресурс-паки</a>
+    <a href="#repo">Свой репозиторий</a>
+  </aside>
+
+  <article class="md">
+
+    <h1>Моды для Meltiew с <span class="mm">nekitMM</span></h1>
+    <p>Мод — это папка с Luau-скриптом, иконкой и (по желанию) ресурс-паком. Моды работают
+    прямо в приложении: в меню и в игре, в безопасной песочнице. Сервер Meltiew о них не знает.</p>
+    <div class="note green"><p><b>Быстрый старт:</b> открой в приложении <b>Моды → Создать пример мода</b>,
+    включи его — и у тебя на экране появится кнопка. Весь код примера можно читать и менять.</p></div>
+
+    <h2 id="start">Установка</h2>
+    <ul>
+      <li>Моды лежат в <code>%APPDATA%\Godot\app_userdata\Meltiew\mods\&lt;id&gt;\</code> — кнопка
+      <b>«Открыть папку модов»</b> открывает её на ПК.</li>
+      <li>Кнопка <b>«Импортировать мод»</b> ставит мод из <code>.zip</code> или одиночного <code>.luau</code>
+      (работает и на телефоне).</li>
+      <li>Готовые моды — во вкладке <b>«Каталог»</b>: добавь репозиторий <code>user/repo</code> и жми «Установить».</li>
+    </ul>
+
+    <h2 id="format">Структура мода</h2>
+<pre><code>my-mod/
+  index.json     манифест и права (обязателен)
+  main.luau      код мода (обязателен)
+  index.png      иконка, до 512×512 (необязательна, большая ужмётся сама)
+  pack.json      ресурс-пак (необязателен)
+  assets/        звуки и картинки мода
+  workspace/     личная папка мода: читать и писать может только он</code></pre>
+<pre><code class="json">{
+  "name": "Мой мод",
+  "description": "Что он делает",
+  "version": "1.0.0",
+  "UiManipulation": false,
+  "Internet": false,
+  "AdvancedFeatures": false,
+  "api": 1
+}</code></pre>
+    <p><code>api</code> — версия API модов, сейчас всегда <code>1</code>. В манифесте можно описать
+    <code>"settings"</code> — страницу настроек мода приложение нарисует само:</p>
+<pre><code class="json">"settings": [
+  { "key": "autoload", "type": "toggle", "title": "Работать при запуске", "default": false },
+  { "key": "volume",   "type": "slider", "min": 0, "max": 1, "step": 0.1, "default": 0.5 },
+  { "key": "style",    "type": "choice", "options": ["мило", "дерзко"] }
+]</code></pre>
+
+    <h2 id="permissions">Права</h2>
+    <table>
+      <tr><th>Флаг</th><th>Что даёт</th></tr>
+      <tr><td><code>UiManipulation</code></td><td><code>Meltiew.coreui</code> — скрывать и проявлять элементы встроенного HUD: чат, полоски HP и стамины, хотбар, прицел, статистику</td></tr>
+      <tr><td><code>Internet</code></td><td><code>Meltiew.http.get/post</code> — запросы на http/https. Ответ ≤ 5 МБ, таймаут 10 с, localhost и приватные адреса запрещены</td></tr>
+      <tr><td><code>AdvancedFeatures</code></td><td>Пока заглушка, но при включении показывается отдельное предупреждение</td></tr>
+    </table>
+
+    <h2 id="api">API модов</h2>
+    <p>Моду доступен глобал <code>Meltiew</code> и Luau-стдлиба (<code>math</code>, <code>string</code>,
+    <code>table</code>, <code>task</code>...). <code>print()</code> пишет в лог мода — он виден на странице «Моды».</p>
+
+    <h3>События</h3>
+    <div class="api"><b>Meltiew.on(name, fn)</b> — <span>подписка: <code>chat</code> {id,name,text} · <code>join</code>/<code>leave</code> {id,name} · <code>dead</code> {id} · <code>place</code> {id,name} · <code>key</code> {key,down} · <code>settings</code></span></div>
+
+    <h3>Уведомления</h3>
+    <div class="api"><b>Meltiew.notify(text)</b> — <span>тост</span></div>
+    <div class="api"><b>Meltiew.big(text, secs)</b> — <span>крупное сообщение по центру (в игре)</span></div>
+
+    <h3>Свой UI</h3>
+<pre><code>local btn = Meltiew.ui.create("button", {x=24, y=160, w=160, h=52, text="Привет!"})
+btn.on("pressed", function() end)
+btn.set({text = "Изменён"})
+btn.destroy()</code></pre>
+    <ul>
+      <li>Классы: <code>panel</code>, <code>label</code>, <code>button</code>, <code>image</code>, <code>progress</code>.</li>
+      <li>Свойства: <code>x, y, w, h, text, text_size, text_color, color, image, value (0..1), visible, opacity</code>.</li>
+      <li>Клики ловит только <code>button</code> и только в своём прямоугольнике — приложение под модом всегда кликабельно.</li>
+    </ul>
+
+    <h3>Файлы workspace</h3>
+    <div class="api"><b>Meltiew.files.read/write/read_b64/write_b64/list/exists/delete</b> — <span>всегда асинхронно: <code>Meltiew.files.read("a.txt", function(res) end)</code> → <code>res.ok</code>, <code>res.text</code>. Только внутри своей <code>workspace</code>, ≤ 5 МБ на файл, ≤ 50 МБ на мод</span></div>
+
+    <h3>Интернет</h3>
+<pre><code>Meltiew.http.get("https://api.example.com/thing", function(res)
+  if res.ok then
+    local data = Meltiew.json.decode(res.text)
+  end
+end)</code></pre>
+    <div class="api"><span><code>res.ok</code>, <code>res.status</code>, <code>res.text</code>, <code>res.b64</code>. Требует флаг <code>Internet</code></span></div>
+
+    <h3>Встроенный HUD</h3>
+    <div class="api"><b>Meltiew.coreui.list() / set(name, props)</b> — <span>имена: <code>chat, health, stamina, hotbar, inventory, crosshair, stats, big_message, camera_button</code>; свойства: <code>visible</code>, <code>opacity</code>. Требует флаг <code>UiManipulation</code></span></div>
+
+    <h3>Прочее</h3>
+    <div class="api"><b>Meltiew.info / settings / json.decode / json.encode</b></div>
+    <div class="api"><b>Meltiew.players.list(fn)</b> — <span>кто сейчас в комнате; <code>Meltiew.me</code> — ты</span></div>
+    <div class="api"><b>Meltiew.sound.play("assets/zvuk.ogg")</b> — <span>звук из папки мода</span></div>
+    <div class="api"><b>task.wait / spawn / defer / delay</b> — <span>планировщик как в Roblox</span></div>
+
+    <h2 id="packs">Ресурс-паки</h2>
+    <p><code>pack.json</code> подменяет встроенные звуки, текстуры плейсов и курсор:</p>
+<pre><code>{
+  "sounds":   { "jump": "assets/jump.ogg", "coin": "assets/coin.wav" },
+  "textures": { "asset://12": "assets/текстура.png" },
+  "cursor":   "assets/курсор.png"
+}</code></pre>
+    <ul>
+      <li>Ключи <code>sounds</code> — имена встроенных звуков: <code>pop, coin, jump, land, hurt, boing, join, click</code>...</li>
+      <li>Ключи <code>textures</code> — точный ref текстуры (<code>asset://&lt;id&gt;</code>).</li>
+      <li>Конфликт двух модов: побеждает включённый позже (по алфавиту id), в лог пишется warning.</li>
+    </ul>
+
+    <h2 id="repo">Свой репозиторий: публикуем моды</h2>
+    <ol class="steps">
+      <li><b>Собери мод в zip</b> — кнопка <code>ZIP</code> на карточке мода. Внутри архива: <code>index.json</code> и <code>main.luau</code> (в корне или в одной папке).</li>
+      <li><b>Создай публичный репозиторий</b> на GitHub, например <code>narezy/nekit-mods</code>.</li>
+      <li><b>Положи в корень репо</b> два файла: <code>advice.zip</code> и <code>mods.json</code>:</li>
+    </ol>
+<pre><code>{
+  "mods": [
+    {
+      "id": "advice",
+      "name": "Совет дня",
+      "version": "1.0.0",
+      "description": "кратко",
+      "file": "advice.zip",
+      "sha256": "необязательно: certutil -hashfile advice.zip SHA256"
+    }
+  ]
+}</code></pre>
+    <ol class="steps" start="4">
+      <li><b>Запушь.</b> Пользователи: «Моды → Каталог → Добавить репозиторий» → <code>user/repo</code> → «Установить».</li>
+      <li><b>Обновления:</b> перезалей zip, подними <code>version</code> в <code>mods.json</code> — кнопка станет «Обновить».</li>
+      <li><b>Попади во встроенный каталог:</b> список живёт в константе <code>BUILTIN_CATALOGS</code> в <code>client/scripts/autoload/mods.gd</code>.</li>
+    </ol>
+    <div class="note purple"><p>Индекс читается с <code>raw.githubusercontent.com/&lt;user&gt;/&lt;repo&gt;/HEAD/mods.json</code> — ветка не важна.</p></div>
+
+  </article>
+</div>
+</main>
+
+<footer>nekitMM · моды для <a href="https://meltiew.narez.xyz">Meltiew</a></footer>
+
+<script>
+  // Scrollspy: highlight the sidebar link of the section on screen.
+  const links = [...document.querySelectorAll('#nav a')];
+  const byId = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        links.forEach((a) => a.classList.remove('on'));
+        byId[e.target.id]?.classList.add('on');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  document.querySelectorAll('.md h2').forEach((h) => spy.observe(h));
+
+  // Copy buttons on code blocks.
+  document.querySelectorAll('.md pre').forEach((pre) => {
+    const b = document.createElement('button');
+    b.className = 'copy';
+    b.textContent = 'копировать';
+    b.addEventListener('click', () => {
+      navigator.clipboard.writeText(pre.querySelector('code').textContent);
+      b.textContent = 'скопировано';
+      setTimeout(() => (b.textContent = 'копировать'), 1200);
+    });
+    pre.appendChild(b);
+  });
+</script>
+</body>
+</html>
