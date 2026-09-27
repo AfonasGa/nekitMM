@@ -1,3 +1,2 @@
 # nekitMM documentation
-
-check https://github.com/narezy/Meltiew
+https://afonasga.github.io/nekitMM/
