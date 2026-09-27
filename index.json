@@ -1,1 +1,13 @@
-
+{
+  "name": "nekit",
+  "description": "моды. крутые.",
+  "mods": [
+    {
+      "id": "CustomEmoteBind",
+      "name": "Custom Emote Bind",
+      "version": "1.0.0",
+      "description": "бинды на эмоции",
+      "file": "CustomEmoteBind.zip"
+    }
+  ]
+}
