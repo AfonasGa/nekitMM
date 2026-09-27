@@ -195,9 +195,11 @@ end)</code></pre>
 
     <h3>Встроенный HUD</h3>
     <div class="api"><b>Meltiew.coreui.list() / set(name, props)</b> — <span>имена: <code>chat, health, stamina, hotbar, inventory, crosshair, stats, big_message, camera_button</code>; свойства: <code>visible</code>, <code>opacity</code>. Требует флаг <code>UiManipulation</code></span></div>
+    <div class="api"><b>Meltiew.coreui.add(container, class, props)</b> — <span>встроить свой элемент в игровое меню: вкладки <code>menu_settings, menu_players, menu_help, menu_console</code>. Возвращает handle как <code>ui.create</code>; элементы переживают смену вкладок</span></div>
 
     <h3>Прочее</h3>
     <div class="api"><b>Meltiew.info / settings / json.decode / json.encode</b></div>
+    <div class="api"><b>Meltiew.play_emote("wave")</b> — <span>эмоция от лица игрока: wave/heart/dance/cheer/clap/laugh/sit или anim://id</span></div>
     <div class="api"><b>Meltiew.players.list(fn)</b> — <span>кто сейчас в комнате; <code>Meltiew.me</code> — ты</span></div>
     <div class="api"><b>Meltiew.sound.play("assets/zvuk.ogg")</b> — <span>звук из папки мода</span></div>
     <div class="api"><b>task.wait / spawn / defer / delay</b> — <span>планировщик как в Roblox</span></div>
@@ -215,13 +217,13 @@ end)</code></pre>
       <li>Конфликт двух модов: побеждает включённый позже (по алфавиту id), в лог пишется warning.</li>
     </ul>
 
-    <h2 id="repo">Свой репозиторий: публикуем моды</h2>
-    <ol class="steps">
-      <li><b>Собери мод в zip</b> — кнопка <code>ZIP</code> на карточке мода. Внутри архива: <code>index.json</code> и <code>main.luau</code> (в корне или в одной папке).</li>
-      <li><b>Создай публичный репозиторий</b> на GitHub, например <code>narezy/nekit-mods</code>.</li>
-      <li><b>Положи в корень репо</b> два файла: <code>advice.zip</code> и <code>mods.json</code>:</li>
-    </ol>
+    <h2 id="repo">Свой каталог: публикуем моды</h2>
+    <p>Каталог — это файл <code>mods.json</code>. Он может лежать в репозитории на GitHub или
+    <b>на любом своём сайте</b> — пользователь добавит каталог прямой ссылкой на
+    <code>mods.json</code>. Внутри — имя, описание и список модов:</p>
 <pre><code>{
+  "name": "Мои моды",
+  "description": "Каталог модов nekitMM",
   "mods": [
     {
       "id": "advice",
@@ -233,12 +235,21 @@ end)</code></pre>
     }
   ]
 }</code></pre>
+    <ul>
+      <li><code>name</code> и <code>description</code> — показываются на карточке каталога.</li>
+      <li><code>file</code> — путь к zip рядом с <code>mods.json</code> <b>или абсолютный URL</b> на любой сайт.</li>
+    </ul>
+    <ol class="steps">
+      <li><b>Собери мод в zip</b> — кнопка <code>ZIP</code> на карточке мода. Внутри архива: <code>index.json</code> и <code>main.luau</code> (в корне или в одной папке).</li>
+      <li><b>Размести каталог:</b> репозиторий на GitHub (<code>user/repo</code>) или свой сайт с прямой ссылкой на <code>mods.json</code>.</li>
+      <li><b>Пользователи:</b> «Моды → Каталог → Добавить репозиторий» → вставляют <code>user/repo</code> или ссылку → «Установить».</li>
+    </ol>
     <ol class="steps" start="4">
       <li><b>Запушь.</b> Пользователи: «Моды → Каталог → Добавить репозиторий» → <code>user/repo</code> → «Установить».</li>
       <li><b>Обновления:</b> перезалей zip, подними <code>version</code> в <code>mods.json</code> — кнопка станет «Обновить».</li>
       <li><b>Попади во встроенный каталог:</b> список живёт в константе <code>BUILTIN_CATALOGS</code> в <code>client/scripts/autoload/mods.gd</code>.</li>
     </ol>
-    <div class="note purple"><p>Индекс читается с <code>raw.githubusercontent.com/&lt;user&gt;/&lt;repo&gt;/HEAD/mods.json</code> — ветка не важна.</p></div>
+    <div class="note purple"><p>GitHub-каталоги читаются с <code>raw.githubusercontent.com/&lt;user&gt;/&lt;repo&gt;/HEAD/mods.json</code> — ветка не важна. Свои каталоги можно хостить где угодно: подойдёт прямая ссылка на <code>mods.json</code>.</p></div>
 
   </article>
 </div>
