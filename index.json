@@ -8,6 +8,13 @@
       "version": "1.0.0",
       "description": "бинды на эмоции",
       "file": "CustomEmoteBind.zip"
+    },
+    {
+      "id": "dotium",
+      "name": "Dotium",
+      "version": "1.1.0",
+      "description": "оптимизация",
+      "file": "Dotium.zip"
     }
   ]
 }
