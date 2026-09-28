@@ -157,7 +157,7 @@
       <tr><th>Флаг</th><th>Что даёт</th></tr>
       <tr><td><code>UiManipulation</code></td><td><code>Meltiew.coreui</code> — скрывать и проявлять элементы встроенного HUD: чат, полоски HP и стамины, хотбар, прицел, статистику</td></tr>
       <tr><td><code>Internet</code></td><td><code>Meltiew.http.get/post</code> — запросы на http/https. Ответ ≤ 5 МБ, таймаут 10 с, localhost и приватные адреса запрещены</td></tr>
-      <tr><td><code>AdvancedFeatures</code></td><td>Пока заглушка, но при включении показывается отдельное предупреждение</td></tr>
+      <tr><td><code>AdvancedFeatures</code></td><td><code>Meltiew.engine</code> — твики движка: vsync, лимит FPS, масштаб 3D-рендера, MSAA. При включении показывается предупреждение</td></tr>
     </table>
 
     <h2 id="api">API модов</h2>
@@ -195,11 +195,13 @@ end)</code></pre>
 
     <h3>Встроенный HUD</h3>
     <div class="api"><b>Meltiew.coreui.list() / set(name, props)</b> — <span>имена: <code>chat, health, stamina, hotbar, inventory, crosshair, stats, big_message, camera_button</code>; свойства: <code>visible</code>, <code>opacity</code>. Требует флаг <code>UiManipulation</code></span></div>
-    <div class="api"><b>Meltiew.coreui.add(container, class, props)</b> — <span>встроить свой элемент в игровое меню: вкладки <code>menu_settings, menu_players, menu_help, menu_console</code>. Возвращает handle как <code>ui.create</code>; элементы переживают смену вкладок</span></div>
+    <div class="api"><b>Meltiew.coreui.add(container, class, props)</b> — <span>встроить свой элемент в игровое меню: вкладки <code>menu_settings, menu_players, menu_help, menu_console, menu_mods</code>. Возвращает handle как <code>ui.create</code>; элементы переживают смену вкладок</span></div>
 
     <h3>Прочее</h3>
     <div class="api"><b>Meltiew.info / settings / json.decode / json.encode</b></div>
     <div class="api"><b>Meltiew.play_emote("wave")</b> — <span>эмоция от лица игрока: wave/heart/dance/cheer/clap/laugh/sit или anim://id</span></div>
+    <div class="api"><b>Meltiew.engine.vsync / max_fps / scale / fsr / msaa / fxaa / lod / physics_fps / soft_shadows</b> — <span>твики движка, только с флагом <code>AdvancedFeatures</code></span></div>
+    <div class="api"><b>Meltiew.engine.detect(fn)</b> — <span>авто-подбор настроек под железо: fn({tier, adapter, cpu, ram_gb, rec})</span></div>
     <div class="api"><b>Meltiew.players.list(fn)</b> — <span>кто сейчас в комнате; <code>Meltiew.me</code> — ты</span></div>
     <div class="api"><b>Meltiew.sound.play("assets/zvuk.ogg")</b> — <span>звук из папки мода</span></div>
     <div class="api"><b>task.wait / spawn / defer / delay</b> — <span>планировщик как в Roblox</span></div>
