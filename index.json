@@ -3,8 +3,8 @@
   "description": "моды. крутые.",
   "mods": [
     {
-      "id": "CustomEmoteBind",
-      "name": "Custom Emote Bind",
+      "id": "customemotebind",
+      "name": "CustomEmoteBind",
       "version": "1.0.0",
       "description": "бинды на эмоции",
       "file": "CustomEmoteBind.zip"
